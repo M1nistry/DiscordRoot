@@ -1,0 +1,32 @@
+﻿<mui:ModernWindow x:Class="DiscordRoot.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        Title="Discord Root" IsTitleVisible="True"
+        LogoData="M 94.723122,128.30118 C 152.94256,100.47915 222.74704,91.633904 296.10926,127.23986 Z"         
+        ContentSource="/Pages/Login.xaml" Width="950">
+
+    <mui:ModernWindow.MenuLinkGroups>
+        <mui:LinkGroup DisplayName="welcome" x:Name="LinkGroupWelcome">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="login" Source="/Pages/Login.xaml"/>
+                <mui:Link DisplayName="home" Source="/Pages/Home.xaml"/>
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="connections" x:Name="LinkGroupConnections">
+            <mui:LinkGroup.Links>
+                
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+        <mui:LinkGroup DisplayName="settings" GroupKey="settings">
+            <mui:LinkGroup.Links>
+                <mui:Link DisplayName="software" Source="/Pages/SettingsPage.xaml" />
+            </mui:LinkGroup.Links>
+        </mui:LinkGroup>
+    </mui:ModernWindow.MenuLinkGroups>
+    
+    <mui:ModernWindow.TitleLinks>
+        <mui:Link DisplayName="settings" Source="/Pages/SettingsPage.xaml" />
+        <mui:Link DisplayName="help" Source="http://mui.codeplex.com" />
+    </mui:ModernWindow.TitleLinks>
+</mui:ModernWindow>
