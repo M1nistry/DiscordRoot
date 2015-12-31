@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FirstFloor.ModernUI.Windows.Controls;
 using System.Windows;
+using Discord;
 
 namespace DiscordRoot
 {
@@ -10,8 +11,7 @@ namespace DiscordRoot
     /// </summary>
     public partial class MainWindow : ModernWindow
     {
-        public Discord.DiscordClient DiscordClient { get; set; }
-        public Task ClientThread { get; set; }
+        public DiscordClient DiscordClient { get; set; }
 
         private static MainWindow _main;
         public MainWindow()

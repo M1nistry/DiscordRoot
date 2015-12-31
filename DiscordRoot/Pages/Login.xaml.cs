@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Schema;
 using Discord;
+using DiscordRoot.Pages;
 using FirstFloor.ModernUI.Windows.Controls;
 
 namespace DiscordRoot.Dialogs
@@ -15,6 +16,7 @@ namespace DiscordRoot.Dialogs
     public partial class Login : UserControl
     {
         MainWindow _main = MainWindow.GetSingleton();
+
 
         public Login()
         {
@@ -33,20 +35,23 @@ namespace DiscordRoot.Dialogs
             {
                 _main.DiscordClient = new DiscordClient(new DiscordClientConfig
                 {
-                    //Warning: Debug mode should only be used for identifying problems. It _will_ slow your application down.
                     LogLevel = LogMessageSeverity.Info
                 });
-
-                //Display all log messages in the console
+                
                 _main.DiscordClient.LogMessage += (s, m) => Console.WriteLine($"[{m.Severity}] {m.Source}: {m.Message}");
-
-                //Echo back any message received, provided it didn't come from the bot itself
+               
                 _main.DiscordClient.MessageReceived += MessageHandler.ParseMessage;
+
+                _main.DiscordClient.UserJoined += (s, u) =>
+                {
+                    Console.WriteLine($"[{u.Server.Name}] - {u.User.Name}");
+                };
 
                 _main.DiscordClient.Connected += (s, obj) =>
                 {
                     if (!_main.DiscordClient.AllServers.Any())
                         JoinServers();
+
                 };
 
                 _main.DiscordClient.Connect(TextBoxEmail.Text, TextBoxPassword.Password);

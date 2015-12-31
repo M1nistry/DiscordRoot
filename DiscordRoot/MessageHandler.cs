@@ -10,7 +10,7 @@ namespace DiscordRoot
 {
     public static class MessageHandler
     {
-        private static MainWindow _main = MainWindow.GetSingleton();
+        private static readonly MainWindow _main = MainWindow.GetSingleton();
 
         static MessageHandler()
         {
@@ -47,7 +47,7 @@ namespace DiscordRoot
                                 }
                                 else
                                 {
-                                    await _main.DiscordClient.SendMessage(e.Message.Channel, @"Verify you're entering a valid number range ie. 1-100");
+                                    await _main.DiscordClient.SendMessage(e.Message.Channel, @"Verify you're entering a valid number range (eg 1-10)");
                                 }
                             }
                             else
@@ -56,7 +56,10 @@ namespace DiscordRoot
                             }
                             break;
 
-                            //todo set yourself an away message/working schedule, etc.
+                        case ("!away"):
+                            SetStatus(e);
+                            break;
+                        //todo set yourself an away message/working schedulcoue, etc.
                     }
                 }
             }
@@ -64,6 +67,15 @@ namespace DiscordRoot
             {
                 
             }
+        }
+
+        public static void SetStatus(MessageEventArgs e)
+        {
+            var spl = e.Message.Text.Split('-');
+            if (spl.Count() == 2)
+            {
+                
+            } 
         }
     }
 }

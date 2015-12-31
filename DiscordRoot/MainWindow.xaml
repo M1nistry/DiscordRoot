@@ -13,9 +13,9 @@
                 <mui:Link DisplayName="home" Source="/Pages/Home.xaml"/>
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
-        <mui:LinkGroup DisplayName="connections" x:Name="LinkGroupConnections">
+        <mui:LinkGroup DisplayName="status" x:Name="LinkGroupConnections">
             <mui:LinkGroup.Links>
-                
+                <mui:Link DisplayName="information" Source="/Pages/Status.xaml"/>
             </mui:LinkGroup.Links>
         </mui:LinkGroup>
         <mui:LinkGroup DisplayName="settings" GroupKey="settings">
