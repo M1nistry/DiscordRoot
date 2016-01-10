@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="AccountEmail" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">xx.ministry@gmail.com</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -25,7 +25,7 @@ namespace DiscordRoot.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("xx.ministry@gmail.com")]
         public string AccountEmail {
             get {
                 return ((string)(this["AccountEmail"]));

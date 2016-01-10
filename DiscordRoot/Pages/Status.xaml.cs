@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using FirstFloor.ModernUI.Presentation;
 
 namespace DiscordRoot.Pages
 {
@@ -22,22 +13,75 @@ namespace DiscordRoot.Pages
     public partial class Status : UserControl
     {
         private static Status _status;
-
-        public bool Connected
-        {
-            get { return TextBlockStatus.Text.Replace("Status: ", "") == "Connected"; }
-            set { TextBlockStatus.Text = value ? "Status: Connected" : "Status: Disconnected"; }
-        }
+        private readonly MainWindow _main;
 
         public Status()
         {
             InitializeComponent();
             _status = this;
+            _main = MainWindow.GetSingleton();
+            Loaded += OnLoaded;
+
+            // add group command
+            this.ButtonAdd.Command = new RelayCommand(AddConnection);
+
+            //// add link to selected group command
+            //this.AddLink.Command = new RelayCommand(o => {
+            //    this.Menu.SelectedLinkGroup.Links.Add(new Link
+            //    {
+            //        DisplayName = string.Format(CultureInfo.InvariantCulture, "link {0}", ++linkId),
+            //        Source = new Uri(string.Format(CultureInfo.InvariantCulture, "/link{0}", linkId), UriKind.Relative)
+            //    });
+            //}, o => this.Menu.SelectedLinkGroup != null);
+
+            //// remove selected group command
+            //this.RemoveGroup.Command = new RelayCommand(o => {
+            //    this.Menu.LinkGroups.Remove(this.Menu.SelectedLinkGroup);
+            //}, o => this.Menu.SelectedLinkGroup != null);
+
+            //// remove selected linkcommand
+            //this.RemoveLink.Command = new RelayCommand(o => {
+            //    this.Menu.SelectedLinkGroup.Links.Remove(this.Menu.SelectedLink);
+            //}, o => this.Menu.SelectedLinkGroup != null && this.Menu.SelectedLink != null);
+
+            // log SourceChanged events
+            MenuConnections.SelectedSourceChanged += (o, e) => {
+                Debug.WriteLine("SelectedSourceChanged: {0}", e.Source);
+            };
         }
 
         public static Status StatusInstance()
         {
             return _status;
+        }
+
+        void AddConnection(object o)
+        {
+            var newConnection = new Dialogs.NewConnection();
+            newConnection.ShowDialog();
+
+            if (newConnection.DialogResult == false) return;
+            var newPage = new LinkGroup
+            {
+                DisplayName = newConnection.ConnectionClient.Email
+            };
+            foreach (var server in newConnection.ConnectionClient.Client.AllServers)
+            {
+                newPage.Links.Add(new Link
+                {
+                    DisplayName = server.Name
+                });
+            }
+            MenuConnections.LinkGroups.Add(newPage);
+        }
+
+        void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_main.DiscordClients.Count == 0)
+            {
+                //var newConnection = new Dialogs.NewConnection();
+                //newConnection.ShowDialog();
+            }
         }
     }
 }

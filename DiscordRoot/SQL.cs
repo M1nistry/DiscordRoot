@@ -40,6 +40,8 @@ namespace DiscordRoot
 
                 const string statusTable = @"CREATE TABLE IF NOT EXISTS `status` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user_id` INTEGER, `message` TEXT, `date_end` DATETIME, `active` TINYINT);";
 
+                const string quoteTable = @"CREATE TABLE IF NOT EXISTS `quotes` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `user_id` INTEGER, `quote` TEXT, `timestamp` DATETIME, `keyword` TEXT);";
+
                 using (var connection = new SQLiteConnection(Connection).OpenAndReturn())
                 {
                     using (var cmd = new SQLiteCommand(connection))
@@ -50,6 +52,8 @@ namespace DiscordRoot
                         cmd.CommandText = statusTable;
                         cmd.ExecuteNonQuery();
 
+                        cmd.CommandText = quoteTable;
+                        cmd.ExecuteNonQuery();
 
                     }
                 }

@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using FirstFloor.ModernUI.Windows.Controls;
-using System.Windows;
 using Discord;
 
 namespace DiscordRoot
@@ -11,13 +9,14 @@ namespace DiscordRoot
     /// </summary>
     public partial class MainWindow : ModernWindow
     {
-        public DiscordClient DiscordClient { get; set; }
+        public List<BotClient> DiscordClients { get; set; } 
 
         private static MainWindow _main;
         public MainWindow()
         {
             InitializeComponent();
             _main = this;
+            DiscordClients = new List<BotClient>();
         }
 
         public static MainWindow GetSingleton()

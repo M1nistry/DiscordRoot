@@ -7,11 +7,37 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Style="{StaticResource ContentRoot}">
-        <ScrollViewer>
-            <StackPanel MinWidth="200">
-                <TextBlock x:Name="TextBlockStatus" Text="Status:" Style="{StaticResource Heading2}" />
-                <TextBlock Text="Content goes here" />
-            </StackPanel>
-        </ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollViewer>
+                <StackPanel Orientation="Vertical">
+
+                    <StackPanel.Resources>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Orientation" Value="Horizontal" />
+                            <Setter Property="Margin" Value="0,0,0,4" />
+                        </Style>
+                        <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                            <Setter Property="Width" Value="100" />
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                        </Style>
+                    </StackPanel.Resources>
+                    
+                    <StackPanel>
+                        <mui:ModernMenu x:Name="MenuConnections" Margin="0,0,0,0">
+                            
+                        </mui:ModernMenu>
+                        <mui:ModernButton x:Name="ButtonAdd" IconData="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z" IsEnabled="True" Margin="0,0,0,16" />
+                    </StackPanel>
+                    
+                </StackPanel>
+            </ScrollViewer>
+            <Grid Grid.Row="1" Margin="{StaticResource StatusMargin}" >
+                <TextBlock Text="..." />
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

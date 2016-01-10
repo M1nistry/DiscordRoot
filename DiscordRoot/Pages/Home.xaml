@@ -9,5 +9,10 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Style="{StaticResource ContentRoot}">
         <TextBlock Text="SUP CUNT"></TextBlock>
+        <Grid Margin="{StaticResource HeaderMargin}" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Rectangle />
+            <TextBlock Text="0 client" />
+        </Grid>
     </Grid>
+    
 </UserControl>
