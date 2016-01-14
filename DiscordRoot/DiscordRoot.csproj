@@ -104,6 +104,9 @@
     </Compile>
     <Compile Include="BotClient.cs" />
     <Compile Include="CommandManager.cs" />
+    <Compile Include="Commands\CodeCommand.cs" />
+    <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Commands\DiscordCommand.cs" />
     <Compile Include="LoginViewModel.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="Dialogs\NewConnection.xaml.cs">
@@ -174,7 +177,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\" />
     <Folder Include="Pages\BotStatus\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

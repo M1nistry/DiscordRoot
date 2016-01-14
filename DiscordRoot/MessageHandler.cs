@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Discord;
+using Discord.Commands;
 
 namespace DiscordRoot
 {
