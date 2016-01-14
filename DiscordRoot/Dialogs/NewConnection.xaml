@@ -4,7 +4,7 @@
                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                   xmlns:mui="http://firstfloorsoftware.com/ModernUI"
-                  xmlns:discordRoot="clr-namespace:DiscordRoot"
+                  xmlns:views="clr-namespace:DiscordRoot.Views"
                   mc:Ignorable="d" 
                   d:DesignHeight="250" d:DesignWidth="380"
                   Title="New Connection">
@@ -15,7 +15,7 @@
 
         <StackPanel MinWidth="200" Orientation="Vertical">
             <StackPanel.DataContext>
-                <discordRoot:LoginViewModel />
+                <views:LoginViewModel />
             </StackPanel.DataContext>
             <StackPanel.Resources>
                 <Style TargetType="StackPanel">
@@ -34,17 +34,18 @@
             
             <StackPanel>
                 <Label Content="Email:" Target="{Binding ElementName=TextBoxEmail}"/>
-                <TextBox x:Name="TextBoxEmail" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="205" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+                <!-- <TextBox x:Name="TextBoxEmail" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="205" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}"/> -->
+                <ComboBox x:Name="ComboBoxEmail" Text="{Binding Email, Mode=TwoWay, ValidatesOnDataErrors=True}" Width="205" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2" IsEditable="True"/>
             </StackPanel>
             <StackPanel>
                 <Label Content="Password:" Target="{Binding ElementName=TextBoxPassword}"/>
-                <PasswordBox x:Name="TextBoxPassword" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="205"/>
+                <PasswordBox x:Name="TextBoxPassword" Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="205" Height="22"/>
                 <CheckBox x:Name="CheckBoxShowPassword" Content="Show Password" IsEnabled="False" Margin="5,0,0,0"/>
             </StackPanel>
             
             <StackPanel HorizontalAlignment="Center" Visibility="Hidden">
                 <Button x:Name="ButtonLogin" Content="Login" Margin="2" Click="ButtonLogin_Click"/>
-                <Button x:Name="ButtonCancel" Content="Cancel" Margin="2"/>
+                <Button x:Name="ButtonCancel" Content="Cancel" Margin="2" Click="ButtonCancel_Click"/>
             </StackPanel>
             
             <StackPanel x:Name="PanelLoginProgress" Visibility="Collapsed">
