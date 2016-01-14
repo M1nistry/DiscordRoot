@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
 using Discord;
 
 namespace DiscordRoot
@@ -72,6 +73,43 @@ namespace DiscordRoot
                             else
                             {
                                 await _client.SendMessage(e.Message.Channel, @"Invalid Syntax (eg. !choose one two three)");
+                            }
+                            break;
+
+                        case ("!combine"):
+                            var split = e.Message.Text.Split(' ');
+                            if (split.Length == 3)
+                            {
+                                var minutes = split[2].ToLower().Contains('m');
+                                //!combine LyonKing 5
+                                //!combine LyonKing 5m
+                                var user = _client.FindUsers(e.Channel, split[1]).FirstOrDefault();
+                                if (user == null) await _client.SendMessage(e.Message.Channel, $"Failed to find a user with the name {split[1]}");
+                                var messages = e.Channel.Messages.Where(w => w.User == user);
+                                string combinedMessage = "";
+                                if (minutes)
+                                {
+                                    double duration;
+                                    if (double.TryParse(split[2].Replace("m", ""), out duration))
+                                    {
+                                        var timedMessages = messages.Where(m => m.Timestamp.TimeOfDay > DateTime.Now.AddMinutes(duration).TimeOfDay);
+                                        foreach (var message in timedMessages) combinedMessage += message + " ";
+                                    }
+                                }
+                                else
+                                {
+                                    int messageCount;
+                                    if (int.TryParse(split[2], out messageCount))
+                                    {
+                                        var messageList = messages.ToList();
+                                        for (int i = 0; i < messageCount; i++) combinedMessage += messageList[i];
+                                    }
+                                }
+                                await _client.SendMessage(e.Message.Channel, combinedMessage);
+                            }
+                            else
+                            {
+                                await _client.SendMessage(e.Message.Channel, @"Invalid Syntax (eg. !combine <name> [amount] / [time])");
                             }
                             break;
                     }
