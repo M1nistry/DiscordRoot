@@ -23,7 +23,7 @@ namespace DiscordRoot.Pages
             Loaded += OnLoaded;
 
             // add group command
-            this.ButtonAdd.Command = new RelayCommand(AddConnection);
+            ButtonAdd.Command = new RelayCommand(AddConnection);
 
             //// add link to selected group command
             //this.AddLink.Command = new RelayCommand(o => {
@@ -69,10 +69,12 @@ namespace DiscordRoot.Pages
             {
                 newPage.Links.Add(new Link
                 {
-                    DisplayName = server.Name
+                    DisplayName = server.Name,
+                    Source = new Uri(@"/Pages/ServerStatus.xaml", UriKind.Relative)
                 });
             }
             MenuConnections.LinkGroups.Add(newPage);
+            _main.DiscordClients.Add(newConnection.ConnectionClient);
         }
 
         void OnLoaded(object sender, RoutedEventArgs e)

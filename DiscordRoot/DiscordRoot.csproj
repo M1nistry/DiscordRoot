@@ -104,13 +104,12 @@
     </Compile>
     <Compile Include="BotClient.cs" />
     <Compile Include="CommandManager.cs" />
-    <Compile Include="Commands\CodeCommand.cs" />
-    <Compile Include="Commands\CommandHandler.cs" />
-    <Compile Include="Commands\DiscordCommand.cs" />
-    <Compile Include="LoginViewModel.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="Dialogs\NewConnection.xaml.cs">
       <DependentUpon>NewConnection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ServerStatus.xaml.cs">
+      <DependentUpon>ServerStatus.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Status.xaml.cs">
       <DependentUpon>Status.xaml</DependentUpon>
@@ -121,6 +120,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="SQL.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\StatusViewModel.cs" />
     <Page Include="Dialogs\NewConnection.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -133,6 +134,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\ServerStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Settings\About.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,6 +182,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Commands\" />
     <Folder Include="Pages\BotStatus\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

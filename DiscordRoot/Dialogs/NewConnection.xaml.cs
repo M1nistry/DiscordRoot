@@ -26,21 +26,21 @@ namespace DiscordRoot.Dialogs
             Buttons = new Button[] { this.ButtonLogin, this.ButtonCancel };
             Loaded += delegate
             {
-                if (TextBoxEmail.Text.Length <= 0) Keyboard.Focus(TextBoxEmail);
+                if (ComboBoxEmail.Text.Length <= 0) Keyboard.Focus(ComboBoxEmail);
                 else Keyboard.Focus(TextBoxPassword);
             };
         }
 
         private void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (TextBoxEmail.Text.Contains("@") && TextBoxPassword.Password.Length > 0)
+            if (ComboBoxEmail.Text.Contains("@") && TextBoxPassword.Password.Length > 0)
             {
                 PanelLoginProgress.Visibility = Visibility.Visible;
                 _newClient = new BotClient();
                 LabelStatus.Content = "Logging in...";
 
                 _newClient.Client.Connected += NewClient_Connected;
-                _newClient.Login(TextBoxEmail.Text, TextBoxPassword.Password);
+                _newClient.Login(ComboBoxEmail.Text, TextBoxPassword.Password);
 
             }
         }
@@ -54,6 +54,11 @@ namespace DiscordRoot.Dialogs
                 DialogResult = true;
                 Close();
             }));
+        }
+
+        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using FirstFloor.ModernUI.Presentation;
 
-namespace DiscordRoot
+namespace DiscordRoot.Models
 {
     class LoginViewModel : NotifyPropertyChanged, IDataErrorInfo
     {

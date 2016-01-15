@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using FirstFloor.ModernUI.Windows.Controls;
-using Discord;
 
 namespace DiscordRoot
 {
@@ -9,7 +8,8 @@ namespace DiscordRoot
     /// </summary>
     public partial class MainWindow : ModernWindow
     {
-        public List<BotClient> DiscordClients { get; set; } 
+        public List<BotClient> DiscordClients { get; set; }
+        public int ClientCount => DiscordClients.Count;
 
         private static MainWindow _main;
         public MainWindow()
