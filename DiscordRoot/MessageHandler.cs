@@ -81,21 +81,20 @@ namespace DiscordRoot
                             var split = e.Message.Text.Split(' ');
                             if (split.Length == 3)
                             {
-                                var minutes = split[2].ToLower().Contains('m');
                                 //!combine LyonKing 5
                                 //!combine LyonKing 5m
                                 var user = _client.FindUsers(e.Channel, split[1]).FirstOrDefault();
                                 if (user == null) await _client.SendMessage(e.Message.Channel, $"Failed to find a user with the name {split[1]}");
-                                var messages = e.Channel.Messages.Where(w => w.User == user);
-                                string combinedMessage = split[1] + " is SPAMMING: ";
-                                if (minutes)
+                                var messages = e.Channel.Messages.Where(w => w.User == user && !w.Text.StartsWith("!"));
+                                var combinedMessage = split[1] + " is SPAMMING: ";
+                                if (split[2].ToLower().Contains('m'))
                                 {
                                     double duration;
                                     if (double.TryParse(split[2].Replace("m", ""), out duration))
                                     {
                                         var timedMessages = messages.Where(m => m.Timestamp.TimeOfDay > DateTime.Now.AddMinutes(-duration).TimeOfDay).OrderBy(d => d.Timestamp);
-                                        foreach (var message in timedMessages.Where(m => !m.Text.StartsWith("!combine"))) combinedMessage += message.Text + " ";
-                                        await _client.DeleteMessages(timedMessages);
+                                        foreach (var message in timedMessages) combinedMessage += message.Text + " ";
+                                        //await _client.DeleteMessages(timedMessages);
                                     }
                                 }
                                 else
@@ -103,11 +102,11 @@ namespace DiscordRoot
                                     int messageCount;
                                     if (int.TryParse(split[2], out messageCount))
                                     {
-                                        var messageList = messages.OrderBy(o => o.Timestamp).Where(m => !m.Text.StartsWith("!combine")).ToList();
+                                        var messageList = messages.OrderBy(o => o.Timestamp).ToList();
                                         for (int i = 1; i <= messageCount; i++)
                                         {
-                                            combinedMessage += messageList[i].Text;
-                                            await _client.DeleteMessages(messageList);
+                                            combinedMessage += messageList[i].Text + " ";
+                                            //await _client.DeleteMessages(messageList);
                                         }
                                     }
                                 }
