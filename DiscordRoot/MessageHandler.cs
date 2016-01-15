@@ -81,20 +81,23 @@ namespace DiscordRoot
                             var split = e.Message.Text.Split(' ');
                             if (split.Length == 3)
                             {
-                                //!combine LyonKing 5
-                                //!combine LyonKing 5m
                                 var user = _client.FindUsers(e.Channel, split[1]).FirstOrDefault();
                                 if (user == null) await _client.SendMessage(e.Message.Channel, $"Failed to find a user with the name {split[1]}");
-                                var messages = e.Channel.Messages.Where(w => w.User == user && !w.Text.StartsWith("!"));
-                                var combinedMessage = split[1] + " is SPAMMING: ";
+                                var messages = e.Channel.Messages.Where(w => w.User == user && !w.Text.StartsWith("!") && w.Timestamp.TimeOfDay > DateTime.Now.AddHours(-1).TimeOfDay);
+                                var combinedMessage = split[1] + ": ";
                                 if (split[2].ToLower().Contains('m'))
                                 {
                                     double duration;
                                     if (double.TryParse(split[2].Replace("m", ""), out duration))
                                     {
                                         var timedMessages = messages.Where(m => m.Timestamp.TimeOfDay > DateTime.Now.AddMinutes(-duration).TimeOfDay).OrderBy(d => d.Timestamp);
-                                        foreach (var message in timedMessages) combinedMessage += message.Text + " ";
-                                        //await _client.DeleteMessages(timedMessages);
+                                        var messageCount = 1;
+                                        foreach (var message in timedMessages)
+                                        {
+                                            combinedMessage += $"{message.Text} ";
+                                            messageCount++;
+                                        }
+                                        await _client.DeleteMessages(timedMessages);
                                     }
                                 }
                                 else
@@ -103,14 +106,15 @@ namespace DiscordRoot
                                     if (int.TryParse(split[2], out messageCount))
                                     {
                                         var messageList = messages.OrderBy(o => o.Timestamp).ToList();
-                                        for (int i = 1; i <= messageCount; i++)
+                                        for (int i = 0; i < messageCount; i++)
                                         {
-                                            combinedMessage += messageList[i].Text + " ";
-                                            //await _client.DeleteMessages(messageList);
+                                            combinedMessage += $"{messageList[i].Text} ";
+                                            await _client.DeleteMessages(messageList);
                                         }
                                     }
                                 }
                                 await _client.SendMessage(e.Message.Channel, combinedMessage);
+                                await _client.DeleteMessage(e.Message);
                             }
                             else
                             {
