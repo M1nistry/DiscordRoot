@@ -1,40 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Discord.Commands.Permissions.Visibility;
+using System.Windows.Threading;
 
 namespace DiscordRoot.Models
 {
-    class StatusViewModel : INotifyPropertyChanged
+    class StatusViewModel : BindableBase
     {
         
         private readonly DateTime _launchTime;
+        private TimeSpan _uptime => DateTime.Now - _launchTime;
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        private static readonly DispatcherTimer Timer;
+
+        static StatusViewModel()
+        {
+            Timer = new DispatcherTimer
+            {
+                Interval = new TimeSpan(1000),
+                IsEnabled = true
+            };
+        }
 
         public StatusViewModel()
         {
             _launchTime = DateTime.Now;
+            Timer.Tick += (s, e) => OnPropertyChanged("Uptime");
         }
 
-        public TimeSpan Uptime => DateTime.Now - _launchTime;
-
-        public string Error => null;
-
-        public string this[string columnName]
+        public TimeSpan Uptime
         {
             get
             {
-                if (columnName == "Email")
-                {
-                    return string.IsNullOrEmpty("") ? "Required value" : null;
-                }
-                return null;
+                Console.WriteLine(_uptime);
+                return _uptime;
             }
-        }
+            set
+            {
+                if ((DateTime.Now - _launchTime) == value) return;
+                Uptime = DateTime.Now - _launchTime;
+                OnPropertyChanged();
+            }
+        } 
+
+        public string Error => null;
+
     }
 }

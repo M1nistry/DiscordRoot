@@ -10,11 +10,11 @@
     <Grid Style="{StaticResource ContentRoot}">
         <ScrollViewer>
             <StackPanel MinWidth="200" Orientation="Vertical">
-                <!-- <StackPanel.DataContext>
+                <StackPanel.DataContext>
                     <models:StatusViewModel />
-                </StackPanel.DataContext> -->
+                </StackPanel.DataContext>
                 <TextBlock Text="RELATIVE WORKS" Style="{StaticResource Heading2}" />
-                <!-- <TextBlock Text="{Binding Uptime}" /> -->
+                <TextBlock Text="{Binding Uptime, StringFormat=dd\\:hh\\:mm\\:ss}" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

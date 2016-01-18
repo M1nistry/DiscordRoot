@@ -34,9 +34,7 @@
                     </StackPanel.Resources>
 
                     <StackPanel>
-                        <mui:ModernMenu x:Name="MenuConnections" Margin="0,0,0,0">
-
-                        </mui:ModernMenu>
+                        <mui:ModernMenu x:Name="MenuConnections" Margin="0,0,0,0"/>
                         <mui:ModernButton x:Name="ButtonAdd" IconData="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z" IsEnabled="True" Margin="20,0,0,10" />
                     </StackPanel>
                 </StackPanel>

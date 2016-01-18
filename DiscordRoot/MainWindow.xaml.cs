@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using FirstFloor.ModernUI.Windows.Controls;
 
 namespace DiscordRoot
@@ -22,6 +24,11 @@ namespace DiscordRoot
         public static MainWindow GetSingleton()
         {
             return _main;
+        }
+
+        private void MainWindow_OnClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Application.Current.Shutdown(0);
         }
     }
 }

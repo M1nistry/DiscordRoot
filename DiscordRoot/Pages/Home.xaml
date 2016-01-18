@@ -8,8 +8,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Style="{StaticResource ContentRoot}">
-        <TextBlock Text="SUP bro"></TextBlock>
-        
+        <StackPanel>
+            <TextBlock Text="Hello World!"></TextBlock>
+        </StackPanel>
     </Grid>
     
 </UserControl>

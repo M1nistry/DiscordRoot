@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
@@ -23,16 +24,10 @@ namespace DiscordRoot.Pages
             Loaded += OnLoaded;
 
             // add group command
-            ButtonAdd.Command = new RelayCommand(AddConnection);
+            //ButtonAdd.Command = new RelayCommand(AddConnection);
 
-            //// add link to selected group command
-            //this.AddLink.Command = new RelayCommand(o => {
-            //    this.Menu.SelectedLinkGroup.Links.Add(new Link
-            //    {
-            //        DisplayName = string.Format(CultureInfo.InvariantCulture, "link {0}", ++linkId),
-            //        Source = new Uri(string.Format(CultureInfo.InvariantCulture, "/link{0}", linkId), UriKind.Relative)
-            //    });
-            //}, o => this.Menu.SelectedLinkGroup != null);
+            // add link to selected group command
+            this.ButtonAdd.Command = new RelayCommand(AddConnection, o => this.MenuConnections != null);
 
             //// remove selected group command
             //this.RemoveGroup.Command = new RelayCommand(o => {
@@ -63,17 +58,24 @@ namespace DiscordRoot.Pages
             if (newConnection.DialogResult == false) return;
             var newPage = new LinkGroup
             {
-                DisplayName = newConnection.ConnectionClient.Email
+                DisplayName = newConnection.ConnectionClient.Email,
+                GroupKey = "serverEmail"
             };
+            MenuConnections.LinkGroups.Add(newPage);
+            newPage.Links.Add(new Link
+            {
+                DisplayName = "Status",
+                Source = new Uri(@"/Pages/Home.xaml", UriKind.Relative)
+            });
             foreach (var server in newConnection.ConnectionClient.Client.AllServers)
             {
                 newPage.Links.Add(new Link
                 {
                     DisplayName = server.Name,
-                    Source = new Uri(@"/Pages/ServerStatus.xaml", UriKind.Relative)
+                    //Source = new Uri(@"/Pages/ServerStatus.xaml", UriKind.Relative)
                 });
             }
-            MenuConnections.LinkGroups.Add(newPage);
+            MenuConnections.SelectedLink = newPage.Links[0];
             _main.DiscordClients.Add(newConnection.ConnectionClient);
         }
 
